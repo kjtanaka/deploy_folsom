@@ -1,4 +1,0 @@
-# deployfrc - configuration file for deploying OpenStack Folsom
-
-# Define MySQL root password
-MYSQL_PASS=to0EasyPass
