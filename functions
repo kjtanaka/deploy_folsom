@@ -7,8 +7,8 @@ folsom_update() {
 }
 
 # Disable ipv6
-dispable_ipv6() {
-    cat > /etc/hosts<EOF
+folsom_disable_ipv6() {
+    cat > /etc/hosts<<EOF
 127.0.0.1   localhost
 
 # The following lines are desirable for IPv6 capable hosts
