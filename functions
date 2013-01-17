@@ -26,10 +26,11 @@ folsom_install_common_pkg() {
 }
 
 folsom_set_mysql_rootpass() {
-#MYSQL_PASS=nova
-cat <<MYSQL_DEBCONF | sudo debconf-set-selections
+    #MYSQL_PASS=nova
+    cat <<EOF | sudo debconf-set-selections
 mysql-server-5.5 mysql-server/root_password password $MYSQL_PASS
 mysql-server-5.5 mysql-server/root_password_again password $MYSQL_PASS
 mysql-server-5.5 mysql-server/start_on_boot boolean true
-MYSQL_DEBCONF    
+EOF    
+
 }
