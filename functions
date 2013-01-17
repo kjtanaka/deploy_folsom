@@ -20,3 +20,7 @@ folsom_disable_ipv6() {
 EOF
     echo 'net.ipv6.conf.all.disable_ipv6 = 1' >> /etc/sysctl.conf
 }
+
+folsom_install_common_pkg() {
+    apt-get install -y ntp python-mysqldb python-memcache
+}
