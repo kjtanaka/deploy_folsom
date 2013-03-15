@@ -332,7 +332,6 @@ EOF
 /usr/bin/keystone-manage db_sync
 /usr/bin/glance-manage db_sync
 /usr/bin/nova-manage db sync
-cd /usr/share/openstack-dashboard && ./manage.py syncdb --noinput
 service apache2 restart
 
 ##############################################################################
