@@ -211,25 +211,6 @@ rabbit_password=$RABBIT_PASS
 sql_connection = mysql://openstack:$MYSQLPASS@$CONTROLLER/cinder
 EOF
 
-/bin/cat << EOF >> /etc/openstack-dashboard/local_settings.py
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'horizon',
-        'USER': 'openstack',
-        'PASSWORD': '$MYSQLPASS',
-        'HOST': '$CONTROPPER',
-        'default-character-set': 'utf8'
-    }
-}
-HORIZON_CONFIG = {
-    'dashboards': ('nova', 'syspanel', 'settings',),
-    'default_dashboard': 'nova',
-    'user_home': 'openstack_dashboard.views.user_home',
-}
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-EOF
-
 CONF=/etc/nova/api-paste.ini
 /bin/sed \
         -e "s/^auth_host *=.*/auth_host = $CONTROLLER/" \
@@ -342,7 +323,6 @@ GRANT ALL ON keystone.* TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPA
 GRANT ALL ON glance.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
 GRANT ALL ON nova.*     TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
 GRANT ALL ON cinder.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
-GRANT ALL ON horizon.*   TO 'openstack'@'$MYSQL_ACCESS'   IDENTIFIED BY '$MYSQLPASS';
 EOF
 
 ##############################################################################
@@ -353,6 +333,7 @@ EOF
 /usr/bin/glance-manage db_sync
 /usr/bin/nova-manage db sync
 cd /usr/share/openstack-dashboard && ./manage.py syncdb --noinput
+service apache2 restart
 
 ##############################################################################
 ## Start Keystone
