@@ -160,6 +160,7 @@ flat_injected=false
 use_ipv6=false
 
 # VNC
+novncproxy_base_url=http://$CONTROLLER:6080/vnc_auto.html
 vncserver_proxyclient_address=\$my_ip
 vncserver_listen=\$my_ip
 keymap=en-us
